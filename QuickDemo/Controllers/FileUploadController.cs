@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 using QuickDemo.Models;
 using QuickDemo.QuickDemo.BAL;
 using QuickDemo.QuickDemo.Model.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace QuickDemo.Controllers
@@ -62,6 +64,27 @@ namespace QuickDemo.Controllers
             {
                 //logger
                 throw null;
+            }
+        }
+        #endregion
+
+        #region download excel/pdf file
+        /// <summary>
+        /// download file
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public FileResult DownloadFile(string fileName)
+        {
+            try
+            {
+                var path = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images")).Root + $@"";
+                byte[] bytes = System.IO.File.ReadAllBytes(path + fileName);
+                return File(bytes, "application/octet-stream", fileName);
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
         #endregion

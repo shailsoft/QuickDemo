@@ -14,11 +14,18 @@
             @{int index = 1;}
             @foreach (var f in Model.Files)
             {
-                <tr style="width:0">
-                    <td>    @index</td>
+            <tr style="width:0">
+                <td>@index</td>
+                @if (@f.Name.EndsWith("pdf")|| @f.Name.EndsWith("xlsx"))
+                {
+                    <td style="background-color: antiquewhite;">@Html.ActionLink("download", "DownloadFile", new { fileName = f.Name })</td>
+                }
+                else
+                {
                     <th style="width:40%; width:30%"> <img src="http://localhost:37903//images/@f.Name" style="width:30%; width:20%"></th>
-                    <td>@f.Name</td>
-                </tr>
+                }
+                <td>@f.Name</td>
+            </tr>
                 index++;
             }
         </tbody>

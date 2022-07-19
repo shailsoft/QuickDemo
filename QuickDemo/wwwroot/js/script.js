@@ -82,7 +82,7 @@ function ApplyFileValidationRules(readerEvt) {
         alert(
             "The file (" +
             readerEvt.name +
-            ") does not match the upload conditions, You can only upload jpg/png/gif files"
+            ") does not match the upload conditions, You can only upload jpg/png/gif/pdf/excel files"
         );
         e.preventDefault();
         return;
@@ -120,6 +120,10 @@ function CheckFileType(fileType) {
         return true;
     } else if (fileType == "image/gif") {
         return true;
+    } else if (fileType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+        return true;
+    } else if (fileType == "application/pdf") {
+        return true;
     } else {
         return false;
     }
@@ -128,7 +132,7 @@ function CheckFileType(fileType) {
 
 //To check file Size according to upload conditions
 function CheckFileSize(fileSize) {
-    if (fileSize < 300000) {
+    if (fileSize < 300000000) {
         return true;
     } else {
         return false;
